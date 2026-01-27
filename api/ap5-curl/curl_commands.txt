@@ -1,0 +1,67 @@
+devasc@labvm:~/devops-exam/api/ap5-curl$ curl -i http://localhost:5001/api/status
+HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 21
+Server: Werkzeug/1.0.1 Python/3.8.2
+Date: Tue, 27 Jan 2026 22:14:49 GMT
+
+{
+  "status": "ok"
+}
+devasc@labvm:~/devops-exam/api/ap5-curl$ curl -i http://localhost:5001/api/todos
+HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 147
+Server: Werkzeug/1.0.1 Python/3.8.2
+Date: Tue, 27 Jan 2026 22:15:22 GMT
+
+[
+  {
+    "done": false, 
+    "id": 1, 
+    "task": "Study DevOps"
+  }, 
+  {
+    "done": true, 
+    "id": 2, 
+    "task": "Prepare AP5 curl"
+  }
+]
+devasc@labvm:~/devops-exam/api/ap5-curl$ curl -i -X POST http://localhost:5001/api/todos \
+>   -H "Content-Type: application/json" \
+>   -d '{"task":"Make AP5 with curl"}'
+HTTP/1.0 201 CREATED
+Content-Type: application/json
+Content-Length: 65
+Server: Werkzeug/1.0.1 Python/3.8.2
+Date: Tue, 27 Jan 2026 22:15:28 GMT
+
+{
+  "done": false, 
+  "id": 3, 
+  "task": "Make AP5 with curl"
+}
+devasc@labvm:~/devops-exam/api/ap5-curl$ curl -i -X PUT http://localhost:5001/api/todos/1 \
+>   -H "Content-Type: application/json" \
+>   -d '{"done":true}'
+HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 58
+Server: Werkzeug/1.0.1 Python/3.8.2
+Date: Tue, 27 Jan 2026 22:15:35 GMT
+
+{
+  "done": true, 
+  "id": 1, 
+  "task": "Study DevOps"
+}
+devasc@labvm:~/devops-exam/api/ap5-curl$ curl -i -X DELETE http://localhost:5001/api/todos/2
+HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 19
+Server: Werkzeug/1.0.1 Python/3.8.2
+Date: Tue, 27 Jan 2026 22:15:41 GMT
+
+{
+  "deleted": 2
+}
