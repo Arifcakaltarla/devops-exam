@@ -1,0 +1,27 @@
+---
+- hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Install NGINX
+      apt:
+        name: nginx
+        update_cache: yes
+        state: latest
+
+    - name: Create custom NGINX index page
+      copy:
+        dest: /var/www/html/index.html
+        content: |
+          <html>
+          <body>
+            <h1>A3 - NGINX Webserver</h1>
+            <p>Installed and configured using Ansible.</p>
+          </body>
+          </html>
+
+    - name: Restart NGINX
+      service:
+        name: nginx
+        state: restarted
+        enabled: yes
