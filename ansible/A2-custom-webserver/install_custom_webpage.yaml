@@ -1,0 +1,29 @@
+---
+- hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Install Apache2
+      apt:
+        name: apache2
+        update_cache: yes
+        state: latest
+
+    - name: Create custom index.html
+      copy:
+        dest: /var/www/html/index.html
+        content: |
+          <html>
+          <head>
+            <title>A2 Custom Webserver</title>
+          </head>
+          <body>
+            <h1>A2 - Custom Apache Webserver</h1>
+            <p>Deployed automatically using Ansible.</p>
+          </body>
+          </html>
+
+    - name: Restart Apache
+      service:
+        name: apache2
+        state: restarted
